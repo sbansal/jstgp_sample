@@ -12,16 +12,16 @@ If you don't have HomeBrew, install it: http://mxcl.github.com/homebrew/
 
 Basic steps at: http://shapeshed.com/setting-up-nodejs-and-npm-on-mac-osx/
 
-> brew update
-> brew upgrade
-> brew install node
-> curl http://npmjs.org/install.sh | sh  # We promise it won't hurt your machine.  ;-)
+    brew update
+    brew upgrade
+    brew install node
+    curl http://npmjs.org/install.sh | sh  # We promise it won't hurt your machine.  ;-)
 
 Set NODE_PATH=$HOME/node_modules in your .bash_profile
 
 Install required libraries for the project (from your home directory):
 
-> npm install express stylus ejs vows
+    npm install express stylus ejs vows
 
 ### Linux Users ###
 
