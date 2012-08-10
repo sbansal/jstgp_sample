@@ -35,3 +35,8 @@ express
 stylus
 ejs
 vows
+
+our project libraries
+---------------------
+node-uuid
+
