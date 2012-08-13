@@ -39,4 +39,3 @@ vows
 our project libraries
 ---------------------
 node-uuid
-
