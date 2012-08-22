@@ -5,6 +5,8 @@ var hangman = require('./hangman');
 
 var Hangman = hangman.Hangman;
 
+var playerOneToken = null;
+
 vows.describe('The Game Engine').addBatch({
     'when there is no game running': {
         topic: new(Hangman),
@@ -18,9 +20,9 @@ vows.describe('The Game Engine').addBatch({
             assert.equal(result.state, "collectingAttendees");
             assert.equal(result.actions[0], "Start Game");
             assert.isString(result.token);
+            playerOneToken = result.token;
             assert.deepEqual(game.getGameState(result.token), {state: 'collectingAttendees', actions: ['Start Game']});
-            assert.deepEqual(game.getGameState('junk'), {state: 'collectingAttendees', actions: ['Join']});
-
+            assert.deepEqual(game.getGameState('junk'), {state: 'collectingAttendees', actions: ['Join'], error: "Player token not recognized"});
         },
 
         'should be able to accept second attendee': function(game) {
@@ -29,6 +31,15 @@ vows.describe('The Game Engine').addBatch({
             assert.equal(result.state, "collectingAttendees");
             assert.equal(result.actions[0], "Start Game");
             assert.isString(result.token);
+        },
+
+        "should be able to start the game when player one's token is passed in": function(game) {
+            assert.deepEqual(game.getGameState(playerOneToken), {state: 'collectingAttendees', actions: ['Start Game']});
+            var result = game.submitEvent({action: 'Start Game'});
+            assert.equal(result.state, "collectingAttendees");
+            assert.equal(result.actions[0], "Join");
+            assert.equal(result.error, "Only existing current players can start the game");
+
         }
-    }
+}
 }).export(module);
