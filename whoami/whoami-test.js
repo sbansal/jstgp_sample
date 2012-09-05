@@ -7,9 +7,13 @@ var Whoami = whoami.Whoami;
 
 vows.describe('The Who am I Engine').addBatch({
   'Initializing stuff': { 
-		topic: new(Whoami),
-		'should be a response to status request': function(app) {
-			assert.deepEqual(app.getStatus(), {state: 'ack!'});
-		}
-	}
+    topic: new(Whoami),
+    'should have zero backstoppers': function(topic) {
+      assert.deepEqual(topic.getBackstoppers().length, 0);
+    },
+    'should have 3 backstoppers after loading data': function(topic){
+      topic.loadFakeBackstoppers();
+      assert.deepEqual(topic.getBackstoppers().length, 3);
+    }
+  }
 }).export(module);
